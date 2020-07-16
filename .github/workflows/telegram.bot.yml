@@ -1,0 +1,27 @@
+name: Telegram Bot build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-lates
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2 
+        with:
+          persist-credentials: false
+      
+      - name: Login on Docker hub
+        run: docker login --username=${{ secrets.DockerUser }} --password=${{ secrets.DockerPassword }}
+      
+      - name: Build Docker
+        run: docker image build -t plasim/lonely-bot .
+        
+      - name: Push to Docker hub
+        run: docker push plasim/lonely-bot
