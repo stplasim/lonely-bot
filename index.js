@@ -1,8 +1,10 @@
 const env = require('dotenv');
 const telegraf = require('telegraf');
 
-// Setup env
-env.config();
+if(process.env.NODE_ENV === 'development') {
+  // Setup env
+  env.config();
+}
 
 // Init telegraf
 const bot = new telegraf(process.env.TELEGRAM_BOT);
