@@ -9,16 +9,14 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-lates
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2 
-        with:
-          persist-credentials: false
+        uses: actions/checkout@v2  
       
       - name: Login on Docker hub
-        run: docker login --username=${{ secrets.DockerUser }} --password=${{ secrets.DockerPassword }}
+        run: docker login --username=plasim --password=${{ secrets.DockerPassword }}
       
       - name: Build Docker
         run: docker image build -t plasim/lonely-bot .
