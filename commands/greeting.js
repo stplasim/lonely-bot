@@ -16,6 +16,9 @@ module.exports = {
     }
 
     // Send regular non wednesday message
-    return ctx.reply(`Hi ${ctx.from.username}, hope you have a nice day`);
+    const user = ctx.from.username;
+    return ctx.reply(
+      `${user === undefined || null ? 'Hey' : 'Hi ' + user }, hope you have a nice day`
+    );
   }
 }
