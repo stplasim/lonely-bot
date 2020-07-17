@@ -18,5 +18,5 @@ require('./scheduler')(bot);
 
 // Start bot
 bot.launch()
-  .then(() => console.log('Bot started!'))
+  .then(() => console.log(`Bot started! - Version ${process.env.BOT_VERSION}`))
   .catch(e => console.error(`Starting bot failed: ${e}`));
