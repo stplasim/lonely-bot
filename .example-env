@@ -1,0 +1,11 @@
+# Bot info
+BOT_NAME=
+BOT_VERSION=
+
+# Api keys
+TELEGRAM_BOT=
+NEWS_API=
+WEATHER_API=
+
+# Chat info
+CHAT_ID=
