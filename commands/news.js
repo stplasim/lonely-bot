@@ -78,8 +78,8 @@ module.exports = {
         }
       })
       .then(data => {
-        let news = "All right, guys, here are your top 10 headlines of the day. \n\n";
-        for (let i = 0; i < 10; i++) {
+        let news = "All right, guys, here are your top 7 headlines of the day. \n\n";
+        for (let i = 0; i < 7; i++) {
           const {title, description, url} = shuffle(data.data.articles).pop();
           news += `*${title}*\n\n`
           news += description + '\n';
