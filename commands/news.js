@@ -6,7 +6,14 @@ module.exports = {
     const args = ctx.message.text.replace('/news ', '');
     switch (args) {
       case 'germany':
-        axios.get(`https://newsapi.org/v2/top-headlines?country=de&apiKey=${process.env.NEWS_API}`)
+        axios({
+          "method": "GET",
+          "url": "https://newsapi.org/v2/top-headlines",
+          "params": {
+            "country": "de",
+            "apiKey": process.env.NEWS_API
+          }
+        })
           .then(data => {
             return ctx.replyWithMarkdown(generateNewsMarkdown(data));
           })
@@ -17,7 +24,14 @@ module.exports = {
         break;
 
       case 'italy':
-        axios.get(`https://newsapi.org/v2/top-headlines?country=it&apiKey=${process.env.NEWS_API}`)
+        axios({
+          "method": "GET",
+          "url": "https://newsapi.org/v2/top-headlines",
+          "params": {
+            "country": "it",
+            "apiKey": process.env.NEWS_API
+          }
+        })
         .then(data => {
           return ctx.replyWithMarkdown(generateNewsMarkdown(data));
         })
@@ -28,7 +42,15 @@ module.exports = {
         break;
 
       case 'tech':
-        axios.get(`https://newsapi.org/v2/top-headlines?sources=techcrunch&sortBy=publishedAt&apiKey=${process.env.NEWS_API}`)
+        axios({
+          "method": "GET",
+          "url": "https://newsapi.org/v2/top-headlines",
+          "params": {
+            "sources": "techcrunch",
+            "sortBy": "publishedAt",
+            "apiKey": process.env.NEWS_API
+          }
+        })
         .then(data => {
           return ctx.replyWithMarkdown(generateNewsMarkdown(data));
         })
@@ -46,8 +68,15 @@ module.exports = {
   },
   getGeneralNews() {
     return new Promise((resolve, reject) => {
-      axios
-      .get(`https://newsapi.org/v2/top-headlines?sources=techcrunch,spiegel-online,bbc-news,cnn&pageSize=40&apiKey=${process.env.NEWS_API}`)
+      axios({
+        "method": "GET",
+        "url": "https://newsapi.org/v2/top-headlines",
+        "params": {
+          "sources": "techcrunch,spiegel-online,bbc-news,cnn",
+          "pageSize": "40",
+          "apiKey": process.env.NEWS_API
+        }
+      })
       .then(data => {
         let news = "All right, guys, here are your top 10 headlines of the day. \n\n";
         for (let i = 0; i < 10; i++) {
