@@ -24,4 +24,7 @@ module.exports = (bot) => {
 
   // Handle version command
   bot.command('version', ctx => require('./version').getVersion(ctx));
+
+  // Handle quiz command
+  bot.command('quiz', ctx => require('./quiz').getQuiz(ctx));
 }
