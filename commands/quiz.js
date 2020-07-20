@@ -2,9 +2,13 @@ module.exports = {
   getQuiz(ctx) {
     const type = ctx.message.text.replace('/quiz', '').split(' ');
 
+    // Check for args
     if(type.length === 2) {
+
+      // Require quizzes
       const questions = require('./../data/quiz');
 
+      // Check for the list command
       if(type[1] === 'list') {
         let response =
           "Here you have a list of all the quizzes that are currently available " +
@@ -12,8 +16,8 @@ module.exports = {
           "\n\n"
           response += "------------------------\n";
 
+          // Get quiz info and make output
           const list = questions.getQuizList();
-
           list.forEach(quiz => {
             response += "ID: *" + quiz.id + "*\n";
             response += "Name: " + quiz.name + "\n";
@@ -23,13 +27,16 @@ module.exports = {
           response += "\n\n";
           response += "Do you think all quizzes are trash?" +
             " No problem just create your own. " +
-            "See my [GitHub](https://github.com/stplasim/lonely-bot) site for instructions and a template."
+            "See my [GitHub](https://github.com/stplasim/lonely-bot) site for instructions and a template.";
 
-          return ctx.replyWithMarkdown(response);
+        // Send list of quizzes to user
+        return ctx.replyWithMarkdown(response);
       }
       else {
+        // get quiz data by type
         const questionObj = questions.getRandomQuestion(type[1]);
 
+        // Reply if quiz wasn't found
         if(questionObj === null || questionObj === undefined) {
           return ctx.replyWithMarkdown(
             "I'm sorry but I don't know the quiz you're looking for " +
@@ -38,6 +45,7 @@ module.exports = {
           );
         }
 
+        // Send back quiz
         return ctx.replyWithQuiz(questionObj?.question, questionObj?.answer, {
           correct_option_id: questionObj?.correct,
           is_anonymous: false,
@@ -45,6 +53,7 @@ module.exports = {
         });
       }
     }
+    // Send help with the quiz command
     else {
       return ctx.replyWithMarkdown(
         "Hey. You don't know what to do with your time? Just start a quiz. " +
