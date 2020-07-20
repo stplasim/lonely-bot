@@ -1,0 +1,14 @@
+module.exports = [
+  {
+    // Question, 1-255 characters
+    question: "The question comes here.",
+    answer: [
+      // A JSON-serialized list of answer options, 2-10 strings 1-100 characters each
+      "Question 1",
+      "Question 2",
+      "Question 3",
+      "Question 4"
+    ],
+    correct: 2 // Index of the correct answer. Index starts at 0
+  }
+]
