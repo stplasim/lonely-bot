@@ -1,0 +1,65 @@
+module.exports = {
+  getQuiz(ctx) {
+    const type = ctx.message.text.replace('/quiz', '').split(' ');
+
+    if(type.length === 2) {
+      const questions = require('./../data/quiz');
+
+      if(type[1] === 'list') {
+        let response =
+          "Here you have a list of all the quizzes that are currently available " +
+          "and the corresponding ID. To start a quiz use the id with the command */quiz*" +
+          "\n\n"
+          response += "------------------------\n";
+
+          const list = questions.getQuizList();
+
+          list.forEach(quiz => {
+            response += "ID: *" + quiz.id + "*\n";
+            response += "Name: " + quiz.name + "\n";
+            response += "------------------------\n";
+          });
+
+          response += "\n\n";
+          response += "Do you think all quizzes are trash?" +
+            " No problem just create your own. " +
+            "See my [GitHub](https://github.com/stplasim/lonely-bot) site for instructions and a template."
+
+          return ctx.replyWithMarkdown(response);
+      }
+      else {
+        const questionObj = questions.getRandomQuestion(type[1]);
+
+        if(questionObj === null || questionObj === undefined) {
+          return ctx.replyWithMarkdown(
+            "I'm sorry but I don't know the quiz you're looking for " +
+            "or it's not cool enough for me to know it. \n" +
+            "If you need help finding a quiz that suits you best use the command */quiz list*"
+          );
+        }
+
+        return ctx.replyWithQuiz(questionObj?.question, questionObj?.answer, {
+          correct_option_id: questionObj?.correct,
+          is_anonymous: false,
+          open_period: 60
+        });
+      }
+    }
+    else {
+      return ctx.replyWithMarkdown(
+        "Hey. You don't know what to do with your time? Just start a quiz. " +
+        "To start a quiz, enter the command */quiz* followed by the category.\n\n" +
+        "Here is an example.\n */quiz it*. \n\n" +
+
+        "To prevent dozens of quizzes from floating around in the group, " +
+        "all quizzes have a 60 second life span.\n\n" +
+
+        "If you want to know what quizzes are available, just type the command */quiz list.* \n\n" +
+
+        "Do you think all quizzes are trash?" +
+        " No problem just create your own. " +
+        "See my [GitHub](https://github.com/stplasim/lonely-bot) site for instructions and a template."
+      )
+    }
+  }
+}
