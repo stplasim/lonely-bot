@@ -1,7 +1,16 @@
 const axios = require('axios');
 
 module.exports = {
+
+  /**
+   * Get weather info from api
+   * https://openweathermap.org
+   *
+   * @param ctx - Bot context object
+   * @returns {Promise<Message>}
+   */
   getWeather(ctx) {
+    // Get potential args
     const info = ctx.message.text.replace('/weather ', '').split(' ');
 
     if(info.length === 2) {
@@ -15,6 +24,7 @@ module.exports = {
         }
       })
       .then(data => {
+        // Return text with data as markdown
         return ctx.replyWithMarkdown(
           `Today the temperature in ${data.data.name} is ${data.data.main.temp} degrees ` +
           `with a maximum of ${data.data.main.temp_max} and a minimum of ${data.data.main.temp_min} degrees\n` +
@@ -27,10 +37,12 @@ module.exports = {
       })
       .catch(err => {
         console.log(err);
+        // Handle potential errors
         return ctx.reply('The weather gods don\'t want to tell you the weather right now');
       });
     }
     else {
+      // Return help if command and args were wrong
       return ctx.replyWithMarkdown(
         'I\'m sorry, my dude. But you messed up on something.\n' +
         'You probably didn\'t enter the command completely or entered it wrong\n' +

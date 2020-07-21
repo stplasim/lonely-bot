@@ -1,4 +1,10 @@
 module.exports = {
+  /**
+   * Display help dialog
+   *
+   * @param ctx - Bot context object
+   * @returns {Promise<Message>}
+   */
   getHelp(ctx) {
     console.log(ctx.message);
     return ctx.replyWithMarkdown(

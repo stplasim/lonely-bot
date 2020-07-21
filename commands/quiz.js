@@ -1,4 +1,10 @@
 module.exports = {
+  /**
+   * Quiz handler
+   *
+   * @param ctx - Bot context object
+   * @returns { Promise<MessagePoll>|Promise<Message> }
+   */
   getQuiz(ctx) {
     const type = ctx.message.text.replace('/quiz', '').split(' ');
 
@@ -16,7 +22,7 @@ module.exports = {
           "\n\n"
           response += "------------------------\n";
 
-          // Get quiz info and make output
+          // Get quiz info and make the output
           const list = questions.getQuizList();
           list.forEach(quiz => {
             response += "ID: *" + quiz.id + "*\n";

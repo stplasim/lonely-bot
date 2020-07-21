@@ -1,4 +1,10 @@
 module.exports = {
+  /**
+   * Get quiz by id
+   *
+   * @param type - Id of the quiz
+   * @returns null|{question: string, answer: [string, string, string, string], correct: number}
+   */
   getRandomQuestion(type) {
     switch (type.toLowerCase()) {
       case 'it':
@@ -9,6 +15,11 @@ module.exports = {
         return null;
     }
   },
+  /**
+   * Get list of all available quizzes
+   *
+   * @returns {{name: string, id: string}[]}
+   */
   getQuizList() {
     return [
       {

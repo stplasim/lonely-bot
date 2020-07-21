@@ -1,5 +1,12 @@
 module.exports = {
+  /**
+   * Get greeting
+   *
+   * @param ctx - Bot context object
+   * @returns {Promise<Message>|MiddlewareFn<TelegrafContext>|Promise<MessagePhoto>}
+   */
   simpleGreet(ctx) {
+    // Get current day for wednesday surprise
     const day = new Date().getDay();
 
     // Wednesday message

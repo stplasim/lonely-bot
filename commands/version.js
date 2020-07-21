@@ -1,4 +1,10 @@
 module.exports = {
+  /**
+   * Get bot version and co.
+   *
+   * @param ctx - Bot context object
+   * @returns {Promise<Message>}
+   */
   getVersion(ctx) {
     return ctx.replyWithMarkdown(
       `Hey, my dude. I\'m the *${process.env.BOT_NAME}*. ` +
