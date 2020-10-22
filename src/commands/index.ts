@@ -2,14 +2,14 @@ import {Telegraf} from "telegraf";
 
 // Import commands
 import helloCommand from "./helloCommand";
-import factsCommand from "./factsCommand";
+import { factCommand, uselessFactCommand } from "./factsCommand";
 import helpCommand from "./helpCommand";
 import jokeCommand from "./jokeCommand";
-import memeCommand from "./memeCommand";
+import { memeCommand } from "./memeCommand";
 import versionCommand from "./versionCommand";
 import weatherCommand from "./weatherCommand";
 import quizCommand from "./quizCommand";
-import {newsCommand} from "./newsCommand";
+import { newsCommand } from "./newsCommand";
 
 
 export default (bot: Telegraf<any>) => {
@@ -17,7 +17,10 @@ export default (bot: Telegraf<any>) => {
     bot.command("hello", helloCommand);
 
     // Handle fact command
-    bot.command("fact", factsCommand);
+    bot.command("fact", factCommand);
+
+    // Handle useless fact command
+    bot.command("useless", uselessFactCommand);
 
     // Handle help command
     bot.command("help", helpCommand);
