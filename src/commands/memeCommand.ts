@@ -1,6 +1,31 @@
 import { Context } from "telegraf";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import {logError, logInfo} from "../util/logger";
+
+type MemeData = {
+    postLink: string
+    subreddit: string
+    title: string
+    url: string
+    nsfw: boolean
+    spoiler: boolean
+    author: string
+    ups: number
+}
+
+/**
+ * Get memes from reddit.pi
+ * https://github.com/R3l3ntl3ss/Meme_Api
+ *
+ * @return { Meme data }
+ */
+async function getMemeFromAPI(): Promise<AxiosResponse<MemeData>> {
+    return await axios.get("https://meme-api.herokuapp.com/gimme", {
+        headers: {
+            Accept: "application/json"
+        }
+    });
+}
 
 /**
  * Get memes from reddit.
@@ -9,14 +34,10 @@ import {logError, logInfo} from "../util/logger";
  *
  * @param ctx - Bot context object
  */
-export default async function (ctx: Context): Promise<void> {
+async function memeCommand(ctx: Context): Promise<void> {
    try {
        // Get meme data from api
-       const meme = await axios.get("https://meme-api.herokuapp.com/gimme", {
-           headers: {
-               Accept: "application/json"
-           }
-       });
+       const meme = await getMemeFromAPI()
 
        // Handle error case
        if(meme.data == null) {
@@ -38,3 +59,6 @@ export default async function (ctx: Context): Promise<void> {
        await ctx.reply("It looks like something didn't quite go as planned. Just try it again my dude.");
    }
 }
+
+export { memeCommand, getMemeFromAPI }
+export type { MemeData }
