@@ -6,7 +6,7 @@ import "./util/arrayUtility";
 import commandHandler from "./commands";
 import mentionHandler from "./events";
 import {logError, logInfo} from "./util/logger";
-import { scheduleNews } from "./scheduler";
+import { scheduleMemes, scheduleFact } from "./scheduler";
 
 // Setup env
 config();
@@ -22,7 +22,8 @@ mentionHandler(bot);
 commandHandler(bot);
 
 // Init scheduler
-scheduleNews(bot);
+scheduleMemes(bot);
+scheduleFact(bot);
 
 // Start bot
 bot.launch()
