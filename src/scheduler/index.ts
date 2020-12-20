@@ -41,34 +41,3 @@ export function scheduleMemes(bot: Telegraf<any>) {
         }
     });
 }
-
-/**
- * Schedule useless fact
- *
- * @param bot - Main bot instance
- */
-export function scheduleFact(bot: Telegraf<any>) {
-    schedule("0 12 * * *", async function () {
-        // Chet id
-        const chetId = process.env.CHAT_ID;
-
-        if(chetId == undefined) {
-            logError("Chet id is not defined");
-            return;
-        }
-
-        try {
-            let message = "Hello, it is once again useless facts time\n"
-            message += "Here is today's\n\n"
-            message += (await getUselessFactFromAPI()).data.text
-
-            bot.telegram.sendMessage(chetId, message)
-                .then(() => logInfo(`Send daily fact to group with id ${chetId}`))
-                .catch(err => logError("Something went wrong: ", err));
-        }
-        catch (err) {
-            logError("Something went wrong", err);
-            await bot.telegram.sendMessage(chetId, "Sorry, but I had problems selling your data to the NSA.");
-        }
-    });
-}
